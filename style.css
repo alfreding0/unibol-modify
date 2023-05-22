@@ -1353,6 +1353,10 @@ h1,  h2,  h3,  h4,  h5,  h6{
   --tw-bg-opacity: 1;
   background-color: rgb(243 106 141 / var(--tw-bg-opacity));
 }
+.ipgnh{
+  --tw-bg-opacity: 1;
+  background-color: rgb(70 70 100 / var(--tw-bg-opacity));
+}
 .nh{
   --tw-bg-opacity: 1;
   background-color: rgb(32 202 102 / var(--tw-bg-opacity));
