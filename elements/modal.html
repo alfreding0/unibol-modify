@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- <link
+  rel="stylesheet"
+  href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css"
+/> -->
+
+    <!-- script -->
+    <!-- <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-modal.js"></script> -->
+</head>
+
+<body>
+
+
+    <!-- component -->
+
+    <head>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script>
+            var cont = 0;
+            function loopSlider() {
+                var xx = setInterval(function () {
+                    switch (cont) {
+                        case 0: {
+                            $("#slider-1").fadeOut(400);
+                            $("#slider-2").delay(400).fadeIn(400);
+                            $("#sButton1").removeClass("bg-blue-800");
+                            $("#sButton2").addClass("bg-blue-800");
+                            cont = 1;
+
+                            break;
+                        }
+                        case 1:
+                            {
+
+                                $("#slider-2").fadeOut(400);
+                                $("#slider-1").delay(400).fadeIn(400);
+                                $("#sButton2").removeClass("bg-blue-800");
+                                $("#sButton1").addClass("bg-blue-800");
+
+                                cont = 0;
+
+                                break;
+                            }
+
+
+                    }
+                }, 8000);
+
+            }
+
+            function reinitLoop(time) {
+                clearInterval(xx);
+                setTimeout(loopSlider(), time);
+            }
+
+
+
+            function sliderButton1() {
+
+                $("#slider-2").fadeOut(400);
+                $("#slider-1").delay(400).fadeIn(400);
+                $("#sButton2").removeClass("bg-blue-800");
+                $("#sButton1").addClass("bg-blue-800");
+                reinitLoop(4000);
+                cont = 0
+
+            }
+
+            function sliderButton2() {
+                $("#slider-1").fadeOut(400);
+                $("#slider-2").delay(400).fadeIn(400);
+                $("#sButton1").removeClass("bg-blue-800");
+                $("#sButton2").addClass("bg-blue-800");
+                reinitLoop(4000);
+                cont = 1
+
+            }
+
+            $(window).ready(function () {
+                $("#slider-2").hide();
+                $("#sButton1").addClass("bg-blue-800");
+
+
+                loopSlider();
+
+
+
+
+
+
+            });
+
+
+        </script>
+    </head>
+
+        <div class="sliderAx h-auto">
+            <div id="slider-1" class="container mx-auto">
+                <div class="bg-cover bg-center  h-auto text-white py-24 px-10 object-fill"
+                    style="background-image: url(https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1422&q=80)">
+                    <div class="md:w-1/2">
+                        <p class="font-bold text-sm uppercase">Services</p>
+                        <p class="text-3xl font-bold">Hello world</p>
+                        <p class="text-2xl mb-10 leading-none">Carousel with TailwindCSS and jQuery</p>
+                        <a href="#"
+                            class="bg-blue-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact
+                            us</a>
+                    </div>
+                </div> <!-- container -->
+                <br>
+            </div>
+
+            <div id="slider-2" class="container mx-auto">
+                <div class="bg-cover bg-top  h-auto text-white py-24 px-10 object-fill"
+                    style="background-image: url(https://images.unsplash.com/photo-1544144433-d50aff500b91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)">
+
+                    <p class="font-bold text-sm uppercase">Services</p>
+                    <p class="text-3xl font-bold">Hello world</p>
+                    <p class="text-2xl mb-10 leading-none">Carousel with TailwindCSS and jQuery</p>
+                    <a href="#"
+                        class="bg-blue-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact
+                        us</a>
+
+                </div> <!-- container -->
+                <br>
+            </div>
+        </div>
+        <div class="flex justify-between w-12 mx-auto pb-2">
+            <button id="sButton1" onclick="sliderButton1()" class="bg-blue-400 rounded-full w-4 pb-2 "></button>
+            <button id="sButton2" onclick="sliderButton2() " class="bg-blue-400 rounded-full w-4 p-2"></button>
+        </div>
+
+
+
+
+
+
+
+        <!-- component -->
+        <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css" />
+
+        <!-- This is an example component -->
+        <div class="max-w-2xl mx-auto">
+
+            <!-- Modal toggle -->
+            <button
+                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button" data-modal-toggle="authentication-modaling">
+                Toggle login modal
+            </button>
+
+            <!-- Main modal -->
+            <div id="authentication-modaling" aria-hidden="true"
+                class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
+                <div class="relative w-full max-w-md px-4 h-full md:h-auto">
+                    <!-- Modal content -->
+                    <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+                        <div class="flex justify-end p-2">
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                data-modal-toggle="authentication-modaling">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="#">
+                            <h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+                            <div>
+                                <label for="email"
+                                    class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Your
+                                    email</label>
+                                <input type="email" name="email" id="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    placeholder="name@company.com" required="">
+                            </div>
+                            <div>
+                                <label for="password"
+                                    class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Your
+                                    password</label>
+                                <input type="password" name="password" id="password" placeholder="••••••••"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required="">
+                            </div>
+                            <div class="flex justify-between">
+                                <div class="flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <input id="remember" aria-describedby="remember" type="checkbox"
+                                            class="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                                            required="">
+                                    </div>
+                                    <div class="text-sm ml-3">
+                                        <label for="remember"
+                                            class="font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+                                    </div>
+                                </div>
+                                <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost
+                                    Password?</a>
+                            </div>
+                            <button type="submit"
+                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login
+                                to your account</button>
+                            <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                                Not registered? <a href="#"
+                                    class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-5">This modal element is part of a larger, open-source library of Tailwind CSS components.
+                Learn more by going to the official <a class="text-blue-600 hover:underline" href="#"
+                    target="_blank">Flowbite Documentation</a>.</p>
+        </div>
+
+        <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+
+        <script>
+            $("#authentication-modaling").removeClass("hidden");
+        </script>
+
+
+
+
+
+
+
+
+  <!-- Modal toggle -->
+<button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="default-modal">
+    Toggle modal
+  </button>
+
+  <div id="default-modal" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
+    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+        <!-- Modal content -->
+        <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white">
+                    Terms of Service
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="default-modal">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <p class="text-gray-500 text-base leading-relaxed dark:text-gray-400">
+                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+                </p>
+                <p class="text-gray-500 text-base leading-relaxed dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div
+
+ class="flex space-x-2 items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-toggle="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button data-modal-toggle="default-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+
+</html
