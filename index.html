@@ -265,9 +265,21 @@
 
   <main>
     <!-- ===== Modal Start ===== -->
+    <style>
+      .full-screen-div {
+        height: calc(100vh - 2rem);
+        /* Tamaño de la pantalla menos el espacio de separación */
+        margin-top: 1rem;
+        /* Espacio de separación superior */
+        margin-bottom: 1rem;
+        /* Espacio de separación inferior */
+      }
+    </style>
+
     <div id="modal-1" class="fixed inset-0 flex items-center justify-center z-50">
       <div class="fixed inset-0 bg-black opacity-50"></div>
-      <div class="w-1/2 bg-white rounded-xl shadow-xl p-6 max-h-screen overflow-y-auto border-2 border-blue-600 relative z-50">
+      <div
+        class="rounded-2xl shadow-xl p-6 max-h-screen overflow-y-auto mt-5 border-2 border-yellow-300 relative z-50 bg-purple-100">
         <div class="flex justify-end">
           <button id="close-modal-1" class="text-gray-500 hover:text-red-500">
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -276,21 +288,22 @@
             </svg>
           </button>
         </div>
-        <h2 class="text-xl font-bold text-black mb-4">CURSO: Actualización en Metodología la Investigación, Formato de perfil
-          de Tesis-Tesina Unibol Guaraní, Sistemas Semestralizado (4ta edición)</h2>
-        <a href="#" class="flex items-center hover:text-gray-700">
-          <span class="mr-2">
-            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </span>
-          Regístrate en este formulario
-        </a>
-        <img class="rounded mt-2" src="../images/anuncios/anuncio1.jpeg" alt="">
+        <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-yellow-600 rounded p-4 mt-2">
+          <h2 class="text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-white mb-4">CURSO: Git & GitHub</h2>
+          <a href="#" class="flex items-center hover:text-emerald-700 bg-white rounded text-purple-700 font-semibold">
+            <span class="mr-2">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </span>
+            Regístrate en este formulario
+          </a>
+        </div>
+        <img class="rounded mt-2" src="../images/anuncios/anuncio3.jpeg" alt="">
       </div>
     </div>
 
-    <div id="modal-2" class="fixed inset-0 flex items-center justify-center z-50">
+    <!-- <div id="modal-2" class="fixed inset-0 flex items-center justify-center z-50">
       <div class="fixed inset-0 bg-black opacity-50"></div>
       <div class="w-1/2 bg-white rounded-xl shadow-xl p-6 max-h-screen overflow-y-auto border-2 border-blue-600 relative z-50">
         <div class="flex justify-end">
@@ -313,9 +326,9 @@
         </a>
         <img class="rounded mt-2" src="../images/anuncios/anuncio2.jpeg" alt="">
       </div>
-    </div>
+    </div> -->
 
-    <div id="modal-3" class="fixed inset-0 flex items-center justify-center z-50">
+    <!-- <div id="modal-3" class="fixed inset-0 flex items-center justify-center z-50">
       <div class="fixed inset-0 bg-black opacity-50"></div>
       <div class="w-1/2 bg-white rounded-xl shadow-xl p-6 max-h-screen overflow-y-auto border-2 border-blue-600 relative z-50">
         <div class="flex justify-end">
@@ -337,7 +350,7 @@
           Regístrate en este formulario
         </a>
         <img class="rounded mt-2" src="../images/anuncios/anuncio3.jpeg" alt="">
-      </div>
+      </div> -->
     </div>
     <!-- ===== Modal End ===== -->
 
@@ -1053,7 +1066,7 @@
       modal3.classList.remove('hidden');
 
       document.body.style.overflow = 'hidden';
-      
+
     });
 
 
