@@ -13,151 +13,11 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
   <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+  <script src="https://cdn.tailwindcss.com"></script>
 
 
-  <!-- ==== Script para carusel ==== -->
-  <script>
-    var cont = 0;
-    function loopSlider() {
-      var xx = setInterval(function () {
-        switch (cont) {
-          case 0: {
-            $("#slider-1").delay(400).fadeIn(400);
-            $("#slider-2").fadeOut(400);
-            $("#slider-3").fadeOut(400);
-            $("#slider-4").fadeOut(400);
-            $("#sButton1").addClass("bg-blue-800");
-            $("#sButton2").removeClass("bg-blue-800");
-            $("#sButton3").removeClass("bg-blue-800");
-            $("#sButton4").removeClass("bg-blue-800");
-            cont = 1;
-
-            break;
-          }
-          case 1:
-            {
-
-              $("#slider-1").fadeOut(400);
-              $("#slider-2").delay(400).fadeIn(400);
-              $("#slider-3").fadeOut(400);
-              $("#slider-4").fadeOut(400);
-              $("#sButton1").removeClass("bg-blue-800");
-              $("#sButton2").addClass("bg-blue-800");
-              $("#sButton3").removeClass("bg-blue-800");
-              $("#sButton3").removeClass("bg-blue-800");
-
-              cont = 2;
-
-              break;
-            }
-          case 2:
-            {
-              $("#slider-1").fadeOut(400);
-              $("#slider-2").fadeOut(400);
-              $("#slider-3").delay(400).fadeIn(400);
-              $("#slider-4").fadeOut(400);
-              $("#sButton1").removeClass("bg-blue-800");
-              $("#sButton2").removeClass("bg-blue-800");
-              $("#sButton3").addClass("bg-blue-800");
-              $("#sButton4").removeClass("bg-blue-800");
-              cont = 3;
-              break;
-            }
-          case 3:
-            {
-              $("#slider-1").fadeOut(400);
-              $("#slider-2").fadeOut(400);
-              $("#slider-3").fadeOut(400);
-              $("#slider-4").delay(400).fadeIn(400);
-              $("#sButton1").removeClass("bg-blue-800");
-              $("#sButton2").removeClass("bg-blue-800");
-              $("#sButton3").removeClass("bg-blue-800");
-              $("#sButton4").addClass("bg-blue-800");
-              cont = 0;
-              break;
-            }
-
-        }
-      }, 4000);
-
-    }
-
-    function reinitLoop(time) {
-      clearInterval(xx);
-      setTimeout(loopSlider(), time);
-    }
-
-
-
-    function sliderButton1() {
-
-      $("#slider-1").delay(400).fadeIn(400);
-      $("#slider-2").fadeOut(400);
-      $("#slider-3").fadeOut(400);
-      $("#slider-4").fadeOut(400);
-      $("#sButton1").addClass("bg-blue-800");
-      $("#sButton2").removeClass("bg-blue-800");
-      $("#sButton3").removeClass("bg-blue-800");
-      $("#sButton4").removeClass("bg-blue-800");
-      reinitLoop(4000);
-      cont = 0
-
-    }
-
-    function sliderButton2() {
-      $("#slider-1").fadeOut(400);
-      $("#slider-2").delay(400).fadeIn(400);
-      $("#slider-3").fadeOut(400);
-      $("#slider-4").fadeOut(400);
-      $("#sButton1").removeClass("bg-blue-800");
-      $("#sButton2").addClass("bg-blue-800");
-      $("#sButton3").removeClass("bg-blue-800");
-      $("#sButton4").removeClass("bg-blue-800");
-      reinitLoop(4000);
-      cont = 1
-    }
-
-    function sliderButton3() {
-      $("#slider-1").fadeOut(400);
-      $("#slider-2").fadeOut(400);
-      $("#slider-3").delay(400).fadeIn(400);
-      $("#slider-4").fadeOut(400);
-      $("#sButton1").removeClass("bg-blue-800");
-      $("#sButton2").removeClass("bg-blue-800");
-      $("#sButton3").addClass("bg-blue-800");
-      $("#sButton4").removeClass("bg-blue-800");
-      reinitLoop(4000);
-      cont = 1
-    }
-
-    function sliderButton4() {
-      $("#slider-1").fadeOut(400);
-      $("#slider-2").fadeOut(400);
-      $("#slider-3").fadeOut(400);
-      $("#slider-4").delay(400).fadeIn(400);
-      $("#sButton1").removeClass("bg-blue-800");
-      $("#sButton2").removeClass("bg-blue-800");
-      $("#sButton3").removeClass("bg-blue-800");
-      $("#sButton4").addClass("bg-blue-800");
-      reinitLoop(4000);
-      cont = 1
-    }
-
-    $(window).ready(function () {
-      $("#sButton1").addClass("bg-blue-800");
-      $("#slider-2").hide();
-      $("#slider-3").hide();
-      $("#slider-4").hide();
-      loopSlider();
-    });
-
-
-  </script>
 </head>
 
 <body x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
@@ -403,82 +263,31 @@
     <div class="animate_top 2xl:mx-64">
       <h2 class="col-span-full fk vj zp or kk wm wb text-center">Algunas actividades...</h2>
 
-      <div id="slider-1" class="container mx-auto">
-        <div class="bg-cover bg-center md:rounded-2xl h-auto text-white py-24 px-10 object-fill h-50"
-          style="background-image: url(images/carusel/por1.jpg)">
-          <div class="md:w-1/2 md:h-72">
-            <!-- <p class="font-bold text-sm uppercase">Services</p>
-            <p class="text-3xl font-bold">Hello world</p>
-            <p class="text-2xl mb-10 leading-none">Carousel with TailwindCSS and jQuery</p> -->
-            <!-- <a href="#"
-              class="bg-blue-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact
-              us</a> -->
+      <div class="swiper-container overflow-x-hidden">
+        <div class="swiper-wrapper max-w-2xl xl:max-w-lg">
+
+          <div class="swiper-slide">
+            <img class="min-w-full rounded-2xl" src="../images/carusel/por1.jpg" alt="Imagen Anuncio 1">
+          </div>
+
+          <div class="swiper-slide">
+            <img class="min-w-full rounded-2xl" src="../images/carusel/por5.jpg" alt="Imagen Anuncio 2">
+          </div>
+
+          <div class="swiper-slide">
+            <img class="min-w-full rounded-2xl" src="../images/carusel/por6.jpg" alt="Imagen Anuncio 3">
+          </div>
+
+          <div class="swiper-slide">
+            <img class="min-w-full rounded-2xl" src="../images/carusel/por7.jpg" alt="Imagen Anuncio 4">
           </div>
         </div>
-        <br>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
-
-      <div id="slider-2" class="container mx-auto">
-        <div class="bg-cover bg-top md:rounded-2xl h-auto text-white py-24 px-10 object-fill"
-          style="background-image: url(images/carusel/por5.jpg)">
-          <div class="md:w-1/2 md:h-72">
-            <!-- <p class="font-bold text-sm uppercase">Services</p>
-          <p class="text-3xl font-bold">Hello world</p>
-          <p class="text-2xl mb-10 leading-none">Carousel with TailwindCSS and jQuery</p> -->
-            <!-- <a href="#"
-            class="bg-blue-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact
-            us</a> -->
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div id="slider-3" class="container mx-auto">
-        <div class="bg-cover bg-center md:rounded-2xl h-auto text-white py-24 px-10 object-fill"
-          style="background-image: url(images/carusel/por6.jpg)">
-          <div class="md:w-1/2 md:h-72">
-
-            <!-- <p class="font-bold text-sm uppercase">Services</p>
-          <p class="text-3xl font-bold">Hello world</p>
-          <p class="text-2xl mb-10 leading-none">Carousel with TailwindCSS and jQuery</p> -->
-            <!-- <a href="#"
-            class="bg-blue-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact
-            us</a> -->
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div id="slider-4" class="container mx-auto">
-        <div class="bg-cover bg-center md:rounded-2xl h-auto text-white py-24 px-10 object-fill"
-          style="background-image: url(images/carusel/por7.jpg)">
-          <div class="md:w-1/2 md:h-72">
-
-            <!-- <p class="font-bold text-sm uppercase">Services</p>
-            <p class="text-3xl font-bold">Hello world</p>
-            <p class="text-2xl mb-10 leading-none">Carousel with TailwindCSS and jQuery</p> -->
-            <!-- <a href="#"
-            class="bg-blue-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact
-            us</a> -->
-          </div>
-        </div>
-        <br>
-      </div>
-    </div>
-    <div class="flex justify-center mx-auto px-3 pb-2">
-      <button id="sButton1" onclick="sliderButton1()" class="bg-blue-400 rounded-full w-4 pb-2 mx-1"></button>
-      <button id="sButton2" onclick="sliderButton2() " class="bg-blue-400 rounded-full w-4 p-2 mx-1"></button>
-      <button id="sButton3" onclick="sliderButton3() " class="bg-blue-400 rounded-full w-4 p-2 mx-1"></button>
-      <button id="sButton4" onclick="sliderButton4() " class="bg-blue-400 rounded-full w-4 p-2 mx-1"></button>
     </div>
     <!-- ==== Carusel End ==== -->
-
-
-
-    <!-- Modal Notice Start  -->
-
-    <!-- Modal Notice End  -->
-
 
 
 
