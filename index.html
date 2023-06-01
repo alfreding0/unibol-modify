@@ -17,7 +17,9 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-
+  <!-- Firebase & Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 
 <body x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
@@ -625,6 +627,10 @@
             <p class="ek bk aq">Total graduados en Licenciatura</p>
           </div>
           <div class="animate_top me/5 ln rj">
+            <h2 class="gk vj zp or kk wm hc">1033</h2>
+            <p class="ek bk aq">Total graduados en Licenciatura</p>
+          </div>
+          <div class="animate_top me/5 ln rj">
             <h2 class="gk vj zp or kk wm hc">993</h2>
             <p class="ek bk aq">Total graduados en Tecnico Superior</p>
           </div>
@@ -633,8 +639,8 @@
             <p class="ek bk aq">Total estudiantes en curso</p>
           </div>
           <div class="animate_top me/5 ln rj">
-            <h2 class="gk vj zp or kk wm hc">346</h2>
-            <p class="ek bk aq">Total profesionales trabajando</p>
+            <h2 id="counterVisitors" class="gk vj zp or kk hc bg-blue-300 rounded-full px-2">3000</h2>
+            <p class="ek bk aq text-green-500">Número de Visitas</p>
           </div>
         </div>
       </div>
@@ -778,7 +784,8 @@
 
               <form action="https://wa.me/59177019337?text=" method="GET" target="_blank">
                 <div class="i">
-                  <input type="text" placeholder="Envía tu mensaje" class="vd sm _g ch pm vk xm rg gm dm dn gi mi" disabled/>
+                  <input type="text" placeholder="Envía tu mensaje" class="vd sm _g ch pm vk xm rg gm dm dn gi mi"
+                    disabled />
 
                   <button class="h q fi" disabled>
                     <svg class="th vm ul" width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -977,6 +984,107 @@
   </script>
 
   <script defer src="bundle.js"></script>
+
+
+
+  <!-- Firebase App Start -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+
+    // import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    // import { getFirestore } from "/firebase/firestore";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOwrNY9JD84cnwrGnxJyRrqb4zRVLG-JI",
+      authDomain: "page-unibol-guarani.firebaseapp.com",
+      projectId: "page-unibol-guarani",
+      storageBucket: "page-unibol-guarani.appspot.com",
+      messagingSenderId: "71987480504",
+      appId: "1:71987480504:web:c38abf72fb86aa14d4714d"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Cloud Firestore and get a reference to the service
+    const db = firebase.firestore();
+
+
+    
+    let data = await readDocument('visitor-counter', 'counter');
+    writeDocument('visitor-counter', 'counter', data);
+    document.getElementById('counterVisitors').innerHTML = data.generalVisitors;
+
+
+    
+
+    // updateVisitorCounter();
+
+    // FUNCTIONS ***********************************************************
+    function updateVisitorCounter() { //All steps directly
+      db.collection('visitor-counter').doc('counter').get().then((doc) => {
+        if (doc.exists) {
+          const counter = doc.data().generalVisitors + 1;
+          db.collection('visitor-counter').doc('counter').update({
+            generalVisitors: counter
+          }).then(() => {
+            console.log("Document successfully udpate!");
+          })
+            .catch((error) => {
+              console.error("Error updating document: ", error);
+            });
+        } else {
+          console.log("No such document!");
+        }
+      });
+    }
+
+
+
+    // Add a new document in a collection *********************
+    function writeDocument(collection, documentID, data) {
+
+      let counter = data.generalVisitors;
+
+      db.collection(collection).doc(documentID).set({
+        "generalVisitors": counter + 1
+      })
+        .then(() => {
+          console.log("Document successfully written!");
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+    }
+
+    // Get document from a collection *************************
+    async function readDocument(collection, documentID) {
+      var docRef = db.collection(collection).doc(documentID);
+
+      try {
+        var doc = await docRef.get();
+        if (doc.exists) {
+          var data = doc.data();
+          // Utilizar los datos obtenidos
+          console.log(data.generalVisitors);
+          return data;
+        } else {
+          // El documento no existe
+          console.log("El documento no existe.");
+          return null;
+        }
+      } catch (error) {
+        console.log("Error al obtener el documento:", error);
+        return null;
+      }
+    }
+  </script>
+  <!-- Firebase App End -->
+
 </body>
 
 </html>
