@@ -903,24 +903,16 @@
   <script>
     // FUNCTIONS TO MODAL
     const openModalButton = document.getElementById('open-modal');
-
     const closeModalButton1 = document.getElementById('close-modal-1');
-    const closeModalButton2 = document.getElementById('close-modal-2');
-    const closeModalButton3 = document.getElementById('close-modal-3');
-
     const modal1 = document.getElementById('modal-1');
-    const modal2 = document.getElementById('modal-2');
-    const modal3 = document.getElementById('modal-3');
 
     openModalButton.addEventListener('click', () => {
       document.body.style.overflow = 'hidden';
 
       verifyExistsAnuncios(modal1);
 
-      modal1.classList.remove('hidden');
-      modal2.classList.remove('hidden');
-      modal3.classList.remove('hidden');
-
+      if (modal1 !== null)
+        modal1.classList.remove('hidden');
     });
 
 
@@ -928,40 +920,42 @@
 
     //Ocultar modal con clic en boton X
     hiddeModalOnClickButton(closeModalButton1, modal1);
-    hiddeModalOnClickButton(closeModalButton2, modal2);
-    hiddeModalOnClickButton(closeModalButton3, modal3);
 
     //Ocultar modal con clic en espacio libre
     hiddeModalOnClickSpace(modal1);
-    hiddeModalOnClickSpace(modal2);
-    hiddeModalOnClickSpace(modal3);
 
 
     //Functions
     function hiddeModalOnClickSpace(modal) {
       try {
-        modal.addEventListener('click', (event) => {
-          if (event.target === modal) {
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-            document.getElementById('header').classList.remove('hidden');
-          }
-        });
+        if (modal !== null) {
+          modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+              modal.classList.add('hidden');
+              document.body.style.overflow = '';
+              document.getElementById('header').classList.remove('hidden');
+            }
+          });
+        } else
+          console.log('No existe ningún modal');
       } catch (error) {
-        console.log('Probably exists an error null un buttonModal or Modal');
+        console.log('Probably exists an error null an clickSpace or Modal');
       }
     }
 
     function hiddeModalOnClickButton(button, modal) {
       try {
-        button.addEventListener('click', () => {
-          modal.classList.add('hidden');
-          console.log('Hidden ' + modal.id);
-          document.body.style.overflow = '';
-          document.getElementById('header').classList.remove('hidden');
-        });
+        if (modal !== null) {
+          button.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            console.log('Hidden ' + modal.id);
+            document.body.style.overflow = '';
+            document.getElementById('header').classList.remove('hidden');
+          });
+        } else
+          console.log('No existe ningún modal');
       } catch (error) {
-        console.log('Probably exists an error null un buttonModal or Modal');
+        console.log('Probably exists an error null an buttonModal or Modal');
       }
     }
 
@@ -1014,13 +1008,13 @@
     const db = firebase.firestore();
 
 
-    
+
     let data = await readDocument('visitor-counter', 'counter');
     writeDocument('visitor-counter', 'counter', data);
     document.getElementById('counterVisitors').innerHTML = data.generalVisitors;
 
 
-    
+
 
     // updateVisitorCounter();
 
