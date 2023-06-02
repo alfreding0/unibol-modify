@@ -27,6 +27,7 @@
          darkMode = JSON.parse(localStorage.getItem('darkMode'));
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
   :class="{'b eh': darkMode === true}">
+  
   <!-- ===== Header Start ===== -->
   <header id="header" class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
     @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
@@ -59,15 +60,8 @@
           <ul class="tc _o sf yo cg ep">
             <li><a href="index.html" class="xl" :class="{ 'mk': page === 'home' }">Inicio</a></li>
             <li><button id="open-modal" class="xl">Anuncios</button></li>
-            <li><a href="index.html#features" class="xl">Institucional</a></li>
+            <li><a href="institucional.html" class="xl" :class="{ 'mk': page === 'institucional' }">Institucional</a></li>
             <li><a href="#" class="xl">Academico</a></li>
-            <!-- <li><a href="#" class="xl">Postgrado</a></li> -->
-            <!-- <li><a href="#" class="xl">Transparencia</a></li>
-          <li><a href="#" class="xl">Recursos Humanos</a></li>
-          <li><a href="#" class="xl">Noticias</a></li>
-          <li><a href="#" class="xl">Galeria</a></li>
-          <li><a href="#" class="xl">Acceso</a></li>
-          <li><a href="#" class="xl">Contactos</a></li> -->
             <li class="c i hover:bg-blue-200 rounded-full px-4 py-2" x-data="{ dropdown: false }">
               <a href="#" class="xl tc wf yf bg" @click.prevent="dropdown = !dropdown"
                 :class="{ 'mk': page === 'blog-grid' || page === 'blog-single' || page === 'signin' || page === 'signup' || page === '404' }">
@@ -121,7 +115,6 @@
       </div>
     </div>
   </header>
-
   <!-- ===== Header End ===== -->
 
 
@@ -757,9 +750,9 @@
                 <li><a href="#" class="sc xl vb">Inicio</a></li>
                 <li><a href="#" class="sc xl vb">Anuncios</a></li>
                 <li>
-                  <a href="#" class="sc xl vb">
+                  <a href="institucional.html" class="sc xl vb">
                     Institucional
-                    <!-- <span class="sc ek uj lk nh rg zi _i nc">Hiring</span> -->
+                    <span class="sc ek uj lk nh rg zi _i nc">visit</span>
                   </a>
                 </li>
                 <li><a href="#" class="sc xl vb">Académico</a></li>
@@ -826,8 +819,8 @@
       <!-- Footer Bottom -->
     </div>
   </footer>
-
   <!-- ===== Footer End ===== -->
+
 
   <!-- ====== Back To Top Start ===== -->
   <button class="xc wf xf ie ld vg sr gh tr g sa ta _a" @click="window.scrollTo({top: 0, behavior: 'smooth'})"
@@ -837,7 +830,6 @@
         d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
     </svg>
   </button>
-
   <!-- ====== Back To Top End ===== -->
 
   <script>
