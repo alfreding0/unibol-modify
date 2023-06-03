@@ -29,7 +29,7 @@
   :class="{'b eh': darkMode === true}">
   
   <!-- ===== Header Start ===== -->
-  <header id="header" class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+  <header id="header" class="g s r vd ya cj hidden" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
     @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
     <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
       <div class="vd to/4 tc wf yf">
@@ -121,7 +121,8 @@
 
   <main>
     <!-- ===== Modal Start ===== -->
-    <div id="modal-1" class="fixed inset-0 flex items-center justify-center z-50">
+    <div id="modal-1" class="hidden fixed inset-0 flex items-center justify-center z-50">
+    <!-- <div id="" class="hidden fixed inset-0 flex items-center justify-center z-50"> -->
 
       <style>
         /* For Modal */
@@ -138,6 +139,7 @@
       </style>
 
       <div class="fixed inset-0 bg-black opacity-50"></div>
+
       <div
         class="rounded-2xl shadow-xl p-6 max-h-screen overflow-y-auto border-2 border-yellow-300 relative z-50 bg-purple-100">
         <div class="flex justify-end">
@@ -748,7 +750,6 @@
 
               <ul>
                 <li><a href="#" class="sc xl vb">Inicio</a></li>
-                <li><a href="#" class="sc xl vb">Anuncios</a></li>
                 <li>
                   <a href="institucional.html" class="sc xl vb">
                     Institucional
@@ -954,8 +955,10 @@
     function verifyModalActivate(modal) {
       if (modal !== null) {
         document.getElementById('header').classList.add('hidden');
+        document.getElementById('modal-1').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
       } else {
+        document.getElementById('header').classList.remove('hidden');
         console.log('No existe modal activado');
       }
     }
