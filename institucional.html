@@ -23,7 +23,7 @@
 </head>
 
 <body
-  x-data="{ page: 'institucional', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+  x-data="{ page: 'estudiantes', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
   x-init="
          darkMode = JSON.parse(localStorage.getItem('darkMode'));
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
@@ -78,6 +78,7 @@
 
               <!-- Dropdown Start -->
               <ul class="a" :class="{ 'tc': dropdown }">
+                <li><a href="estudiantes.html" class="xl" :class="{ 'mk': page === 'estudiantes' }">Estudiantes</a></li>
                 <li><a href="https://virtual.posgradounibolguarani.net/moodle30/login/index.php" class="xl"
                     :class="{ 'mk': page === 'blog-grid' }">Postgrado</a></li>
                 <li><a href="blog-grid.html" class="xl" :class="{ 'mk': page === 'blog-grid' }">Blog Grid</a></li>
@@ -308,7 +309,8 @@
 
 
       <div class="animate_top sg oi pi zq ml il am cn _m ">
-        <img src="images/organigrama/organigrama.png" alt="Imagen organigrama" class="rounded-xl min-w-full shadow-xl shadow-purple-400/30">
+        <img src="images/organigrama/organigrama.png" alt="Imagen organigrama"
+          class="rounded-xl min-w-full shadow-xl shadow-purple-400/30">
       </div>
     </section>
     <!-- ===== Organigrama End ===== -->

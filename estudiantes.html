@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unibol Guaraní</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link href="style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Firebase & Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+
+<body
+    x-data="{ page: 'estudiantes', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+    x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'b eh': darkMode === true}">
+
+    <!-- ===== Header Start ===== -->
+    <header id="header" class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+        @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
+        <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
+            <div class="vd to/4 tc wf yf">
+                <a href="index.html">
+                    <img class="om" src="images/logo.png" alt="Logo Light" />
+                    <img class="xc nm" src="images/logo.png" alt="Logo Dark" />
+                </a>
+
+                <!-- Hamburger Toggle BTN -->
+                <button class="po rc" @click="navigationOpen = !navigationOpen">
+                    <span class="rc i pf re pd">
+                        <span class="du-block h q vd yc">
+                            <span class="rc i r s eh um tg te rd eb ml jl dl"
+                                :class="{ 'ue el': !navigationOpen }"></span>
+                            <span class="rc i r s eh um tg te rd eb ml jl fl"
+                                :class="{ 'ue qr': !navigationOpen }"></span>
+                            <span class="rc i r s eh um tg te rd eb ml jl gl"
+                                :class="{ 'ue hl': !navigationOpen }"></span>
+                        </span>
+                        <span class="du-block h q vd yc lf">
+                            <span class="rc eh um tg ml jl el h na r ve yc"
+                                :class="{ 'sd dl': !navigationOpen }"></span>
+                            <span class="rc eh um tg ml jl qr h s pa vd rd"
+                                :class="{ 'sd rr': !navigationOpen }"></span>
+                        </span>
+                    </span>
+                </button>
+                <!-- Hamburger Toggle BTN -->
+            </div>
+
+            <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
+                <nav>
+                    <ul class="tc _o sf yo cg ep">
+                        <li><a href="index.html" class="xl" :class="{ 'mk': page === 'home' }">Inicio</a></li>
+                        <li><button id="open-modal" class="xl">Anuncios</button></li>
+                        <li><a href="institucional.html" class="xl"
+                                :class="{ 'mk': page === 'institucional' }">Institucional</a>
+                        </li>
+                        <li><a href="#" class="xl">Academico</a></li>
+                        <li class="c i hover:bg-blue-200 rounded-full px-4 py-2" x-data="{ dropdown: false }">
+                            <a href="#" class="xl tc wf yf bg" @click.prevent="dropdown = !dropdown"
+                                :class="{ 'mk': page === 'blog-grid' || page === 'blog-single' || page === 'signin' || page === 'signup' || page === '404' }">
+                                Más
+
+                                <svg :class="{ 'wh': dropdown }" class="th mm we fd pf"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path
+                                        d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                                </svg>
+                            </a>
+
+                            <!-- Dropdown Start -->
+                            <ul class="a" :class="{ 'tc': dropdown }">
+                                <li><a href="estudiantes.html" class="xl"
+                                        :class="{ 'mk': page === 'estudiantes' }">Estudiantes</a></li>
+                                <li><a href="https://virtual.posgradounibolguarani.net/moodle30/login/index.php"
+                                        class="xl" :class="{ 'mk': page === 'blog-grid' }">Postgrado</a></li>
+                                <li><a href="blog-grid.html" class="xl" :class="{ 'mk': page === 'blog-grid' }">Blog
+                                        Grid</a></li>
+                                <li><a href="blog-single.html" class="xl"
+                                        :class="{ 'mk': page === 'blog-single' }">Transparencia</a>
+                                </li>
+                                <li><a href="signin.html" class="xl" :class="{ 'mk': page === 'signin' }">Recursos
+                                        Humanos</a></li>
+                                <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Noticias</a>
+                                </li>
+                                <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Galería</a>
+                                </li>
+                                <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Carreras</a>
+                                </li>
+                                <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Contactos</a>
+                                </li>
+                                <li><a href="404.html" class="xl" :class="{ 'mk': page === '404' }">404</a></li>
+                            </ul>
+                            <!-- Dropdown End -->
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="tc wf ig pb no">
+                    <div class="pc h io pa ra" :class="navigationOpen ? '!-ud-visible' : 'd'">
+                        <label class="rc ab i">
+                            <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode"
+                                class="pf vd yc uk h r za ab" />
+                            <!-- Icon Sun -->
+                            <svg :class="{ 'wn' : page === 'home', 'xh' : page === 'home' && stickyMenu }" class="th om"
+                                width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.0908 18.6363C10.3549 18.6363 8.69 17.9467 7.46249 16.7192C6.23497 15.4916 5.54537 13.8268 5.54537 12.0908C5.54537 10.3549 6.23497 8.69 7.46249 7.46249C8.69 6.23497 10.3549 5.54537 12.0908 5.54537C13.8268 5.54537 15.4916 6.23497 16.7192 7.46249C17.9467 8.69 18.6363 10.3549 18.6363 12.0908C18.6363 13.8268 17.9467 15.4916 16.7192 16.7192C15.4916 17.9467 13.8268 18.6363 12.0908 18.6363ZM12.0908 16.4545C13.2481 16.4545 14.358 15.9947 15.1764 15.1764C15.9947 14.358 16.4545 13.2481 16.4545 12.0908C16.4545 10.9335 15.9947 9.8236 15.1764 9.00526C14.358 8.18692 13.2481 7.72718 12.0908 7.72718C10.9335 7.72718 9.8236 8.18692 9.00526 9.00526C8.18692 9.8236 7.72718 10.9335 7.72718 12.0908C7.72718 13.2481 8.18692 14.358 9.00526 15.1764C9.8236 15.9947 10.9335 16.4545 12.0908 16.4545ZM10.9999 0.0908203H13.1817V3.36355H10.9999V0.0908203ZM10.9999 20.8181H13.1817V24.0908H10.9999V20.8181ZM2.83446 4.377L4.377 2.83446L6.69082 5.14828L5.14828 6.69082L2.83446 4.37809V4.377ZM17.4908 19.0334L19.0334 17.4908L21.3472 19.8046L19.8046 21.3472L17.4908 19.0334ZM19.8046 2.83337L21.3472 4.377L19.0334 6.69082L17.4908 5.14828L19.8046 2.83446V2.83337ZM5.14828 17.4908L6.69082 19.0334L4.377 21.3472L2.83446 19.8046L5.14828 17.4908ZM24.0908 10.9999V13.1817H20.8181V10.9999H24.0908ZM3.36355 10.9999V13.1817H0.0908203V10.9999H3.36355Z"
+                                    fill="#7a818b" />
+                            </svg>
+                            <!-- Icon Sun -->
+                            <img class="xc nm" src="images/icon-moon.svg" alt="Moon" />
+                        </label>
+                    </div>
+
+                    <a href="signin.html" :class="{ 'hh/[0.15]' : page === '', 'sh' : page === 'home' && stickyMenu }"
+                        class="lk gh dk rg tc wf xf _l gi hi">Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ===== Header End ===== -->
+
+
+
+    <main>
+        <!-- ===== Estadistica estudiantes Start ===== -->
+        <section class="lj tp kr pt-28">
+            <!-- Section Title Start -->
+            <div x-data="{ sectionTitle: `Población estudiantil 2022`, sectionTitleText: ``}">
+                <div class="animate_top bb ze rj ki xn vq">
+                    <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
+                    </h2>
+                    <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+                </div>
+            </div>
+            <!-- Section Title End -->
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 justify-center lg:grid-cols-3 gap-7 mx-8 [&>div]:rounded-lg animate_top">
+                <div class="bg-blue-200">
+                    <h3 class="text-center">Por Lengua Adscrita</h3>
+                    <canvas id="myChart1"></canvas>
+                </div>
+                <div class="bg-purple-200">
+                    <h3 class="text-center">Por cultura</h3>
+                    <canvas id="myChart2"></canvas>
+                </div>
+                <div class="bg-yellow-200">
+                    <h3 class="text-center">Por género</h3>
+                    <canvas id="myChart3"></canvas>
+                </div>
+            </div>
+        </section>
+        <!-- ===== Estadistica estudiantes End ===== -->
+
+
+
+
+        <!-- ===== Estadistica estudiantes Start ===== -->
+        <section class="lj tp kr">
+            <!-- Section Title Start -->
+            <div x-data="{ sectionTitle: `Población estudiantil 2021`, sectionTitleText: ``}">
+                <div class="animate_top bb ze rj ki xn vq">
+                    <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
+                    </h2>
+                    <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+                </div>
+            </div>
+            <!-- Section Title End -->
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 justify-center lg:grid-cols-3 gap-7 mx-8 [&>div]:rounded-lg animate_top">
+                <div class="bg-blue-200">
+                    <h3 class="text-center">Por carrera</h3>
+                    <canvas id="myChart4"></canvas>
+                </div>
+                <div class="bg-purple-200">
+                    <h3 class="text-center">Por cultura</h3>
+                    <canvas id="myChart5"></canvas>
+                </div>
+                <div class="bg-yellow-200">
+                    <h3 class="text-center">Por género</h3>
+                    <canvas id="myChart6"></canvas>
+                </div>
+            </div>
+        </section>
+        <!-- ===== Estadistica estudiantes End ===== -->
+
+
+
+
+
+        <!-- ===== Residencia Start ===== -->
+        <section class="lj tp kr">
+            <!-- Section Title Start -->
+            <div x-data="{ sectionTitle: `Residencia de estudiantes`, sectionTitleText: ``}">
+                <div class="animate_top bb ze rj ki xn vq">
+                    <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
+                    </h2>
+                    <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+                </div>
+            </div>
+            <!-- Section Title End -->
+
+
+            <div class="bb ze ki xn yq mb en">
+                <div class="">
+                    <!-- Service Item -->
+                    <div class="animate_top sg oi pi zq ml il am cn _m p-0">
+                        <p class="grid justify-items-center mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="3em"
+                                viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                <style>
+                                    svg {
+                                        fill: #4e6bff
+                                    }
+                                </style>
+                                <path
+                                    d="M480 0c-17.7 0-32 14.3-32 32V192 512h64V192H624c8.8 0 16-7.2 16-16V48c0-8.8-7.2-16-16-16H512c0-17.7-14.3-32-32-32zM416 159L276.8 39.7c-12-10.3-29.7-10.3-41.7 0l-224 192C1 240.4-2.7 254.5 2 267.1S18.6 288 32 288H64V480c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V384c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v96c0 17.7 14.3 32 32 32h64.7l.2 0h-1V159z" />
+                            </svg>
+                        </p>
+                        <!-- <span class="ek zj kk wm nb _b text-2xl">Creación</span> -->
+                        <p class="text-justify">La UNIBOL Guaraní y Pueblos de Tierras Bajas “Apiaguaiki Tüpa” se maneja
+                            bajo un sistema de
+                            internado, con el apoyo de un equipo multidisciplinario compuesto por un administrador, un
+                            médico, enfermera, psicóloga, regente, cocineras y porteros que brindan servicios
+                            asistenciales de albergue: en el cual los estudiantes comparten habitaciones.
+
+                            Así mismo los estudiantes se benefician de una variedad de alimentos en el comedor
+                            universitario. Además cuenta con los servicios de atención médica y psicológica
+
+                            Para la convivencia armónica entre todos los estudiantes se tiene una dinámica de
+                            funcionamiento enmarcada en el reglamento de residencia universitaria, donde los estudiantes
+                            tienen derechos, deberes y también obligaciones que cumplir, tomando en cuenta la
+                            característica intercultural, comunitaria y plurilingüe de la Universidad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ===== Residencia End ===== -->
+
+
+
+
+        <!-- ===== Actividades Residencia Start ===== -->
+        <section class="lj tp kr">
+            <!-- Section Title Start -->
+            <div x-data="{ sectionTitle: `Actividades`, sectionTitleText: ``}">
+                <div class="animate_top bb ze rj ki xn vq">
+                    <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
+                    </h2>
+                    <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+                </div>
+            </div>
+            <!-- Section Title End -->
+
+
+            <div
+                class="bb ze ki xn yq mb en grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 [&>div>img]:w-full [&>div]:shadow-lg [&>div]:rounded-lg [&>div]:p-1">
+                <!-- Service Item -->
+                <div class="animate_top">
+                    <img class="rounded-t-lg" src="images/residencia/1.jpg" alt="">
+                    <span class="ek zj kk wm nb _b text-lg">GARANTIZAR LA ALIMENTACIÓN PARA LOS ESTUDIANTES
+                        RESIDENTES</span>
+                    <p class="text-justify">Los abarrotes verduras y otros son recepcionados en los ambientes de almacén
+                        con previa desinfección de todos y cada uno de ellos, además del control de calidad y fecha de
+                        vencimiento por parte de la enfermera de la Unibol la Lic. De Enfermería.</p>
+                </div>
+                <!-- Service Item -->
+                <div class="animate_top">
+                    <img class="rounded-t-lg" src="images/residencia/2.jpg" alt="">
+                    <span class="ek zj kk wm nb _b text-lg">ALMUERZO Y CENA</span>
+                    <p class="text-justify">El almuerzo y la cena, así como la elaboración del pan es responsabilidad,
+                        de lunes a viernes de las cocineras y la panadera respectivamente, los fines de semana asumen
+                        esta tarea los estudiantes de acuerdo a rol previamente establecido.
+                    </p>
+                </div>
+                <!-- Service Item -->
+                <div class="animate_top">
+                    <img class="rounded-t-lg" src="images/residencia/3.jpg" alt="">
+                    <span class="ek zj kk wm nb _b text-lg">SOCIALIZACION EL REGLAMENTO DE RESIDENCIA
+                        UNIVERSITARIA</span>
+                    <p class="text-justify">Esta es sin lugar a duda la tarea que más tiempo y dedicación requiere sobre
+                        todo porque es necesario trabajar en el convencimiento personal de que es posible otra forma de
+                        convivencia.</p>
+                </div>
+                <!-- Service Item -->
+                <div class="animate_top">
+                    <img class="rounded-t-lg" src="images/residencia/4.jpg" alt="">
+                    <span class="ek zj kk wm nb _b text-lg">DOTACION DE IMPLEMENTOS DE BIOSEGURIDAD</span>
+                    <p class="text-justify">Velando siempre por el Bienestar Estudiantil, se hizo entrega de implementos
+                        de bioseguridad a toda la comunidad universitaria.</p>
+                </div>
+            </div>
+        </section>
+        <!-- ===== Actividades Residencia End ===== -->
+    </main>
+
+
+
+    <!-- ===== Footer Start ===== -->
+    <footer>
+        <div class="bb ze ki xn 2xl:ud-px-0">
+            <!-- Footer Top -->
+            <div class="ji gp">
+                <div class="tc uf ap gg fp">
+                    <div class="animate_top zd/2 to/4">
+                        <a href="index.html">
+
+                            <img src="images/logo.png" alt="Logo" />
+                            <!-- <img src="images/logo-dark.svg" alt="Logo" class="xc nm" />
+            <img src="images/logo-dark.svg" alt="Logo" class="xc nm" /> -->
+                        </a>
+
+                        <p class="lc fb">Sitio Web Oficial de la Unibol Guaraní y Pueblos de Tierras Bajas
+                            "Apiaguaiki Tüpa"</p>
+
+                        <ul class="tc wf cg">
+                            <li>
+                                <a href="https://www.facebook.com/unibolguarani" target="_blank">
+                                    <i class="fa-brands fa-facebook fa-2xl" style="color: #002efa;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/unibolguarani" target="_blank">
+                                    <i class="fa-brands fa-twitter fa-2xl" style="color: #2f82ff;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.tiktok.com/@unibolguarani" target="_blank">
+                                    <i class="fa-brands fa-tiktok fa-2xl" style="color: #000000;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/@unibolguarani3404" target="_blank">
+                                    <i class="fa-brands fa-youtube fa-2xl" style="color: #d40000;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/unibolguarani" target="_blank">
+                                    <i class="fa-brands fa-instagram fa-2xl" style="color: #b410b9;"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="vd ro tc sf rn un gg vn">
+                        <div class="animate_top">
+                            <h4 class="kk wm tj ec">Más solicitados</h4>
+
+                            <ul>
+                                <li><a href="#" class="sc xl vb">Inicio</a></li>
+                                <li><a href="#" class="sc xl vb">Anuncios</a></li>
+                                <li>
+                                    <a href="blog-single.html" class="sc xl vb">
+                                        Institucional
+                                        <!-- <span class="sc ek uj lk nh rg zi _i nc">Hiring</span> -->
+                                    </a>
+                                </li>
+                                <li><a href="#" class="sc xl vb">Académico</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="animate_top">
+                            <h4 class="kk wm tj ec">Interno</h4>
+
+                            <ul>
+                                <li><a href="#" class="sc xl vb">Administrativos</a></li>
+                                <li><a href="#" class="sc xl vb">Recursos Humanos</a></li>
+                                <li><a href="#" class="sc xl vb">Actividades</a></li>
+                                <li><a href="#" class="sc xl vb">Galería</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="animate_top">
+                            <h4 class="kk wm tj ec">Más información</h4>
+                            <p class="ac qe">Puedes escribirnos para realizar tu consulta</p>
+                            <p class="ac qe">(No disponible por ahora)</p>
+
+                            <form action="https://wa.me/59177019337?text=" method="GET" target="_blank">
+                                <div class="i">
+                                    <input type="text" placeholder="Envía tu mensaje"
+                                        class="vd sm _g ch pm vk xm rg gm dm dn gi mi" disabled />
+
+                                    <button class="h q fi" disabled>
+                                        <svg class="th vm ul" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_48_1487)">
+                                                <path
+                                                    d="M3.1175 1.17318L18.5025 9.63484C18.5678 9.67081 18.6223 9.72365 18.6602 9.78786C18.6982 9.85206 18.7182 9.92527 18.7182 9.99984C18.7182 10.0744 18.6982 10.1476 18.6602 10.2118C18.6223 10.276 18.5678 10.3289 18.5025 10.3648L3.1175 18.8265C3.05406 18.8614 2.98262 18.8792 2.91023 18.8781C2.83783 18.8769 2.76698 18.857 2.70465 18.8201C2.64232 18.7833 2.59066 18.7308 2.55478 18.6679C2.51889 18.6051 2.50001 18.5339 2.5 18.4615V1.53818C2.50001 1.46577 2.51889 1.39462 2.55478 1.33174C2.59066 1.26885 2.64232 1.2164 2.70465 1.17956C2.76698 1.14272 2.83783 1.12275 2.91023 1.12163C2.98262 1.12051 3.05406 1.13828 3.1175 1.17318ZM4.16667 10.8332V16.3473L15.7083 9.99984L4.16667 3.65234V9.16651H8.33333V10.8332H4.16667Z"
+                                                    fill="" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_48_1487">
+                                                    <rect width="20" height="20" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Top -->
+
+            <!-- Footer Bottom -->
+            <div class="bh ch pm tc uf sf yo wf xf ap cg fp bj">
+                <div class="animate_top">
+                    <ul class="tc wf gg">
+                        <!-- <li><a href="#" class="xl">English</a></li> -->
+                        <li><a href="#" class="xl">Sobre nosotros</a></li>
+                    </ul>
+                </div>
+
+                <div class="animate_top">
+                    <p>&copy; 2023 Unibol Guaraní. Todos los derechos reservados.</p>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+        </div>
+    </footer>
+    <!-- ===== Footer End ===== -->
+
+
+    <!-- ====== Back To Top Start ===== -->
+    <button class="xc wf xf ie ld vg sr gh tr g sa ta _a" @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+        @scroll.window="scrollTop = (window.pageYOffset > 50) ? true : false" :class="{ 'uc' : scrollTop }">
+        <svg class="uh se qd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+                d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
+        </svg>
+    </button>
+    <!-- ====== Back To Top End ===== -->
+
+
+    <script defer src="bundle.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx1 = document.getElementById('myChart1');
+        new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['Gwarayu', 'Mojeño', 'Guaraní', 'Bésiro'],
+                datasets: [{
+                    label: 'POR LENGUA ADSCRITA',
+                    data: [3, 13, 48, 31],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        const ctx2 = document.getElementById('myChart2');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Guarani', 'Besiro', 'Guarayu', 'Mojeño', 'Quechua', 'Afroboliviano', 'Aymara', 'Mojeño Ignaciano', 'leco', 'movima', 'chiman', 'Tacana', 'Moseten', 'Yuracare', 'Cavineño', 'Weenhayek', 'Itonama', 'Joaquiniano'],
+                datasets: [{
+                    label: 'POR CULTURA',
+                    data: [208, 162, 42, 32, 20, 18, 8, 7, 6, 6, 5, 5, 3, 3, 3, 2, 1, 1],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        const ctx3 = document.getElementById('myChart3');
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Red',
+                    'Blue',
+                ],
+                datasets: [{
+                    label: 'Población por género',
+                    data: [65, 35],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)'
+                    ],
+                    // hoverOffset: 4
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const ctx4 = document.getElementById('myChart4');
+        new Chart(ctx4, {
+            type: 'pie',
+            data: {
+                labels: ['ECO', 'IFO', 'IPGN', 'MVZ'],
+                datasets: [{
+                    label: 'POR CARRERA',
+                    data: [73, 164, 146, 189],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const ctx5 = document.getElementById('myChart5');
+        new Chart(ctx5, {
+            type: 'pie',
+            data: {
+                labels: ['Guarani', 'Besiro', 'Guarayu', 'Mojeño', 'Quechua', 'Afroboliviano', 'Aymara', 'Mojeño Ignaciano', 'leco', 'movima', 'chiman', 'Tacana'],
+                datasets: [{
+                    label: 'POR CULTURA',
+                    data: [184, 159, 43, 42, 30, 24, 21, 13, 10, 9, 8, 7],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const ctx6 = document.getElementById('myChart6');
+        new Chart(ctx6, {
+            type: 'pie',
+            data: {
+                labels: ['Masculino', 'Femenino'],
+                datasets: [{
+                    label: 'POR GÉNERO',
+                    data: [364, 208],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
